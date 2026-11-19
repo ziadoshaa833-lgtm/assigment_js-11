@@ -9,7 +9,7 @@ dotenv.config({path:path.resolve('./.env')})
 
 
 const port=process.env.port
-const DATABASE_URI=process.env.DATABASE_URI
+export const DATABASE_URI=process.env.DATABASE_URI
 const SALT_Rounds=process.env.SALT_Rounds
 const Mood=process.env.Mood
 const usersignture=process.env.ACCESS_SIGNTURE_USER

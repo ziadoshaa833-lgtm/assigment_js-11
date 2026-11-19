@@ -1,5 +1,5 @@
 import z from "zod"
-import { BadRequestEception } from "../exciptions/error.exceptions.js";
+import { BadRequestException } from "../exciptions/error.exceptions.js";
 
 
 
@@ -9,7 +9,7 @@ export const validtion=(Schema)=>{
         let {success,error}=Schema.safeParse(req.body)
         console.log({success,error});
         if(!success){
-            throw  BadRequestEception({message:"invalid data",extra:error.issues})
+            throw  BadRequestException({message:"invalid data",extra:error.issues})
         }
         next()
     }

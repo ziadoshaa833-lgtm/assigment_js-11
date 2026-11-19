@@ -11,7 +11,7 @@ export const ErrorRespones=({
  throw new Error(message,{cause:{status,extra}});
 }
 
-export const BadRequestEception=({message="Bad Request",extra=undefined}={})=>{
+export const BadRequestException=({message="Bad Request",extra=undefined}={})=>{
     return ErrorRespones({status:400,message:message,extra:extra})
 }
 

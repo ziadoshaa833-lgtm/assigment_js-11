@@ -1,13 +1,13 @@
  import jwt from "jsonwebtoken"
 import { env } from "../../config/env.service.js"
-import { BadRequestEception } from "../exciptions/error.exceptions.js"
+import { BadRequestException } from "../exciptions/error.exceptions.js"
 
 
  
 
 export const auth=(req,res,next)=>{
     if (req.headers.authorization) {
-        throw BadRequestEception({message:"Token not found"})
+        throw BadRequestException({message:"Token not found"})
         
     }
    let[flag,token]=req.headers.authorization.split(" ")
@@ -33,7 +33,7 @@ export const auth=(req,res,next)=>{
                 req.user=decodeddata
              next()
             }else{
-                throw BadRequestEception({message:"invalid token"})
+                throw BadRequestException({message:"invalid token"})
             }
             default:
 

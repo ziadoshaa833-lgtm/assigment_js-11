@@ -1,11 +1,12 @@
 
-import { BadRequestEception, ConflictException, NotFoundException } from "../../common/exciptions/error.exceptions.js"
+import { BadRequestException, ConflictException, NotFoundException } from "../../common/exciptions/error.exceptions.js"
 import { sendEmail } from "../../common/middleware/send.email.js"
 import { comparehash, genratehash } from "../../common/services/encrption.js"
 import { generatenewAccesstoken, generatetoken } from "../../common/services/token.service.js"
-import { userModel } from "../../database/model/user.model.js"
+import { userModel } from "../../config/database/model/user.model.js"
 import jwt from "jsonwebtoken"
-import { get, set } from "../../database/redis/redis.service.js"
+import { get, set } from "../../config/database/redis/redis.service.js"
+
 
 
 
@@ -17,7 +18,7 @@ export const signup = async (body,file) => {
     let { username, email, password, age, confirmpassword,uniqueName} = body
     let profileImage;
     if (password != confirmpassword) {
-        return BadRequestEception({ message: "password and confiarmpassword not match" })
+        return BadRequestException({ message: "password and confiarmpassword not match" })
     }
     if(file){
         profileImage=file.path
@@ -54,7 +55,7 @@ export const login = async (body) => {
         const { accesstoken, refreshtoken } = generatetoken(userdata)
         return ({ message: "login success", accesstoken, refreshtoken })
     } else {
-        return BadRequestEception({ message: "password not match", extra: "token" })
+        return BadRequestException({ message: "password not match", extra: "token" })
     }
 }
 export const getalluser = async (id) => {
@@ -67,7 +68,7 @@ export const generateaccesstoken = (body) => {
     if (accesstoken) {
         return { accesstoken }
     } else {
-        throw BadRequestEception("invalud token")
+        throw BadRequestException("invalud token")
     }
 
 }
@@ -78,12 +79,12 @@ export const verfyAccount = async (body) => {
         throw NotFoundException({ message: "user not found" })
     }
     if (userdata.isverfied) {
-        throw BadRequestEception({ message: "user already verfyed" })
+        throw BadRequestException({ message: "user already verfyed" })
 
     }
     let redisotp= await get(`otp::${userdata._id}`)    //await
      if (redisotp != otp) {
-        throw BadRequestEception({ message: " otp does not match" })
+        throw BadRequestException({ message: " otp does not match" })
     }
     userdata.isverfied = true
     await userdata.save()

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose"
-import { providerenum ,genderenum,roleenum} from "../../common/index.js"
+import { providerenum ,genderenum,roleenum} from "../../index.js"
 import { string } from "zod"
 
 

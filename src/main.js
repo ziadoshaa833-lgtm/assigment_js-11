@@ -2,10 +2,10 @@ import express from "express"
 import { env } from "./config/env.service.js";
 import authRouter from"./module/auth/auth.controller.js"
 import mesaageRouter from "./module/massage/message.controller.js"
-import { databaseConnection } from "./database/connection.js";
+import { databaseConnection } from "./config/database/connection.js";
 import {fileURLToPath} from 'url'
 import path from 'path'
-import { redisConnection } from "./database/redis/connection.js";
+import { redisConnection } from './config/database/redis/connection.js';
 
 
 const __fileneme=fileURLToPath(import.meta.url)
@@ -24,7 +24,8 @@ app.use("/auth",authRouter)
 app.use("/message",mesaageRouter)
 app.use("/uploads",express.static(uploadpath))
 databaseConnection()
-export const client=await redisConnection()
+
+ export const client= await redisConnection()
 client.set("test","ziad")
 
 

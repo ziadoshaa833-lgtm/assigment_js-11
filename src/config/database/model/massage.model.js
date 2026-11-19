@@ -6,8 +6,16 @@ import mongoose,{Types} from "mongoose";
 export const messageSchema= new mongoose.Schema({
     content:{
         type:String,
-        required:true
+        required:true,
+        minlength:1,
+        maxlength:1000
+
     },
+    senderId:{
+        type:Types.ObjectId,
+        required:true,
+        ref:"user"
+    }, 
     reciverId:{
         type:Types.ObjectId,
         required:true,
@@ -16,6 +24,10 @@ export const messageSchema= new mongoose.Schema({
     image:{
         type:String,
         required:false
+    },
+    anonymous:{
+        type:Boolean,
+        default:true
     }
 },
 {timestamps:true}

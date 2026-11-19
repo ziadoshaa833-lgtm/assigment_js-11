@@ -1,4 +1,4 @@
-import { userModel } from "../../database/model/user.model.js"
+import { userModel } from "../../config/database/model/user.model.js"
 import { UnAuthorizedException } from "../exciptions/error.exceptions.js"
 import { includes } from "zod"
 
